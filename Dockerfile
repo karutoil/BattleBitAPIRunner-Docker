@@ -4,7 +4,7 @@ FROM mcr.microsoft.com/dotnet/sdk:6.0
 ARG UID=5000
 ARG GID=5000
 # ToDo automatically get latest version
-ARG VERSION="0.4.6"
+ARG VERSION="0.4.7"
 ARG FILE="BattleBitAPIRunner.zip"
 ARG DLURL="https://github.com/BattleBit-Community-Servers/BattleBitAPIRunner/releases/download/$VERSION/$VERSION.zip"
 
