@@ -1,6 +1,6 @@
 ﻿[![Docker Pulls](https://img.shields.io/docker/pulls/hedius/bbrapirunner.svg?style=flat-square)](https://hub.docker.com/r/hedius/bbrapirunner/)
 # BattleBitAPIRunner Docker
-A docker image for the latest BBRAPIRunner release.
+A docker image for the latest [BBRAPIRunner](https://github.com/BattleBit-Community-Servers/BattleBitAPIRunner) release.
 
  Permissions
 The image runs with UID and GID 5000 (non-root).
