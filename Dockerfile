@@ -6,7 +6,7 @@ ARG GID=5000
 ARG FILE="BattleBitAPIRunner.zip"
 
 LABEL maintainer="Hedius @ github.com/hedius" \
-      description="BattleBitRunner Docker image" \
+      description="BattleBitRunner Docker image"
 
  # account for execution
 RUN groupadd -r -g $GID bbr && \
@@ -14,10 +14,10 @@ RUN groupadd -r -g $GID bbr && \
 
 WORKDIR /app
 
-RUN apt-get update && \
-    apt-get install -y unzip curl && \
+RUN apt update && \
+    apt install -y unzip curl && \
     rm -rf /var/lib/apt/lists/* && \
-    VERSION=$(curl -s https://api.github.com/repos/BattleBit-Community-Servers/BattleBitAPIRunner/releases/latest | grep tag_name | cut -d '"' -f 4) && \
+    export VERSION=$(curl -s https://api.github.com/repos/BattleBit-Community-Servers/BattleBitAPIRunner/releases/latest | grep tag_name | cut -d '"' -f 4) && \
     curl https://github.com/BattleBit-Community-Servers/BattleBitAPIRunner/releases/download/$VERSION/$VERSION.zip -L -o $FILE  && \
     unzip -x $FILE && \
     rm $FILE && \
