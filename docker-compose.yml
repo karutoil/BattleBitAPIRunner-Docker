@@ -1,2 +1,15 @@
-﻿
+﻿services:
+  bbr-api:
+    image: hedius/bbrapirunner:latest
+    restart: unless-stopped
+    ports:
+      - "29294:29294"
+    tty: true
+    volumes:
+      - type: volume
+        source: bbr
+        target: /app/data
+      # path:/app/data
 
+volumes:
+  bbr:
