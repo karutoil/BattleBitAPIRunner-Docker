@@ -4,6 +4,7 @@ FROM mcr.microsoft.com/dotnet/sdk:6.0
 ARG UID=5000
 ARG GID=5000
 ARG FILE="BattleBitAPIRunner.zip"
+ARG DONOTCACHE="NOT CACHING"
 
 LABEL maintainer="Hedius @ github.com/hedius" \
       description="BattleBitRunner Docker image"
@@ -16,7 +17,9 @@ WORKDIR /app
 
 RUN apt update && \
     apt install -y unzip curl && \
-    rm -rf /var/lib/apt/lists/* && \
+    rm -rf /var/lib/apt/lists/*
+
+RUN echo $DONOTCACHE && \
     export VERSION=$(curl -s https://api.github.com/repos/BattleBit-Community-Servers/BattleBitAPIRunner/releases/latest | grep tag_name | cut -d '"' -f 4) && \
     curl https://github.com/BattleBit-Community-Servers/BattleBitAPIRunner/releases/download/$VERSION/$VERSION.zip -L -o $FILE  && \
     unzip -x $FILE && \
