@@ -1,0 +1,38 @@
+name: Check for External Repo Release
+
+on:
+  schedule:
+    - cron: '*/15 * * * *'
+
+jobs:
+  check-release:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@v2
+      
+    - name: Check for release in another repo
+      run: |
+        # Use GitHub API to check for releases
+        LATEST_RELEASE=$(curl -s "https://api.github.com/repos/BattleBit-Community-Servers/BattleBitAPIRunner/releases/latest" | jq '.tag_name' | tr -d '"')
+        THIS_RELEASE=$(curl -s "https://api.github.com/repos/${{ github.repository }}/releases/latest" | jq '.tag_name' | tr -d '"')
+             
+        # Check if this release tag is recorded in your repo
+        if [[ "$LATEST_RELEASE" != "$THIS_RELEASE" ]]; then
+          curl \
+            -X POST \
+            -H "Authorization: token ${{ secrets.REPO_TOKEN }}" \
+            -H "Accept: application/vnd.github.v3+json" \
+            "https://api.github.com/repos/${{ github.repository }}/releases" \
+            -d '{
+              "tag_name": "$LATEST_RELEASE",
+              "name": "$LATEST_RELEASE",
+              "body": "",
+              "draft": false,
+              "prerelease": false
+            }'
+        fi
+      env:
+        REPO_TOKEN: ${{ secrets.REPO_TOKEN }}
+
