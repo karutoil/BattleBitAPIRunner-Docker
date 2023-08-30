@@ -9,9 +9,6 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-    - name: Checkout repo
-      uses: actions/checkout@v2
-      
     - name: Check for release in another repo
       run: |
         # Use GitHub API to check for releases
@@ -33,6 +30,3 @@ jobs:
               "prerelease": false
             }'
         fi
-      env:
-        REPO_TOKEN: ${{ secrets.REPO_TOKEN }}
-
